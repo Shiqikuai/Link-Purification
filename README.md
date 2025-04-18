@@ -2,7 +2,7 @@
 
 一个优雅的 macOS 链接提取工具，帮助你从文本中快速提取、整理和管理链接。
 
-![App Screenshot](image.png)
+![App Screenshot](screenshots/app.png)
 
 ## ✨ 特点
 
@@ -105,7 +105,7 @@
 
 ## 📄 许可证
 
-Copyright © 2024 Your Name. All rights reserved.
+本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
 
 ## 🤝 贡献
 
