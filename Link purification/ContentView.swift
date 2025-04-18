@@ -95,6 +95,11 @@ struct LinkItem: View {
         
         let host = url.host?.lowercased() ?? ""
         
+        // 磁力链接
+        if link.lowercased().hasPrefix("magnet:") {
+            return "arrow.down.circle.fill"  // 使用下载图标代替磁力链接图标
+        }
+        
         // 社交媒体
         if host.contains("twitter.com") || host.contains("x.com") {
             return "message.circle.fill"
@@ -194,6 +199,11 @@ struct LinkItem: View {
         
         let host = url.host?.lowercased() ?? ""
         
+        // 磁力链接
+        if link.lowercased().hasPrefix("magnet:") {
+            return [Color(hex: "#FF6B6B"), Color(hex: "#FF8E8E")]  // 磁力链接红色
+        }
+        
         // 社交媒体 - 使用品牌色或接近的颜色
         if host.contains("twitter.com") || host.contains("x.com") {
             return [Color(hex: "#1DA1F2"), Color(hex: "#0C85D0")]  // Twitter蓝
@@ -286,6 +296,11 @@ struct LinkItem: View {
         }
         
         let host = url.host?.lowercased() ?? ""
+        
+        // 磁力链接
+        if link.lowercased().hasPrefix("magnet:") {
+            return (Color(hex: "#FFE6E6"), Color(hex: "#FF6B6B"), Color(hex: "#FFB3B3"))
+        }
         
         // 社交媒体
         if host.contains("twitter.com") || host.contains("x.com") {
@@ -385,7 +400,10 @@ struct LinkItem: View {
     
     var body: some View {
         Button(action: {
-            if let url = URL(string: link) {
+            if link.lowercased().hasPrefix("magnet:") {
+                // 使用 NSWorkspace 打开磁力链接，这会触发系统默认的磁力链接处理程序
+                NSWorkspace.shared.open(URL(string: link)!)
+            } else if let url = URL(string: link) {
                 NSWorkspace.shared.open(url)
             }
         }) {
@@ -599,8 +617,8 @@ struct ContentView: View {
                 }
             }
             
-            // 使用正则表达式获取额外的链接
-            let urlPattern = "(?i)https?://[^\\s/$.?#].[^\\s]*"
+            // 使用正则表达式获取额外的链接，包括磁力链接
+            let urlPattern = "(?i)(https?://[^\\s/$.?#].[^\\s]*|magnet:\\?[^\\s]+)"
             let regex = try NSRegularExpression(pattern: urlPattern)
             let additionalMatches = regex.matches(in: inputText, range: range)
             
