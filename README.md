@@ -2,7 +2,7 @@
 
 一个优雅的 macOS 链接提取工具，帮助你从文本中快速提取、整理和管理链接。
 
-![App Screenshot](screenshots/app.png)
+![App Screenshot](image.png)
 
 ## ✨ 特点
 
