@@ -9,7 +9,7 @@ import SwiftUI
 import HotKey
 import AppKit
 
-class WindowManager: ObservableObject {
+class WindowManager: NSObject, ObservableObject {
     private var hotKey: HotKey?
     @Published var isWindowVisible = true
     private var mainWindow: NSWindow?
@@ -20,7 +20,8 @@ class WindowManager: ObservableObject {
         }
     }
     
-    init() {
+    override init() {
+        super.init()
         setupHotKey()
     }
     
@@ -48,6 +49,9 @@ class WindowManager: ObservableObject {
         window.titleVisibility = .hidden // 隐藏标题
         window.styleMask = [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView] // 添加 fullSizeContentView 使内容延伸到标题栏
         window.isMovableByWindowBackground = true
+        
+        // 设置窗口关闭行为为隐藏
+        window.delegate = self
         
         // 显示窗口并激活应用
         window.makeKeyAndOrderFront(nil)
@@ -107,6 +111,16 @@ class WindowManager: ObservableObject {
     }
 }
 
+// 添加 NSWindowDelegate 扩展
+extension WindowManager: NSWindowDelegate {
+    func windowShouldClose(_ sender: NSWindow) -> Bool {
+        // 当用户点击关闭按钮或使用 Command+W 时，隐藏窗口而不是关闭
+        sender.orderOut(nil)
+        isWindowVisible = false
+        return false
+    }
+}
+
 @main
 struct Link_purificationApp: App {
     @StateObject private var windowManager = WindowManager()
@@ -122,6 +136,11 @@ struct Link_purificationApp: App {
                         }
                     }
                 }
+        }
+        .windowStyle(.hiddenTitleBar)
+        .commands {
+            // 移除新建窗口菜单项
+            CommandGroup(replacing: .newItem) { }
         }
     }
 }
