@@ -2,7 +2,8 @@
 
 一个优雅的 macOS 链接提取工具，帮助你从文本中快速提取、整理和管理链接。
 
-![App Screenshot](image.png)
+### 使用演示
+![App Demonstration](Demonstrate.gif)
 
 ## ✨ 特点
 
