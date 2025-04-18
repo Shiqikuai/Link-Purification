@@ -11,6 +11,7 @@ struct AnimatedInputField: View {
     @Binding var text: String
     @State private var isFocused: Bool = false
     @State private var placeholder: String = "在这里输入或粘贴文本..."
+    @EnvironmentObject private var windowManager: WindowManager
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -38,6 +39,8 @@ struct AnimatedInputField: View {
                 if !text.isEmpty {
                     Button(action: {
                         text = ""
+                        // 清空 windowManager 的剪贴板内容
+                        windowManager.clipboardContent = ""
                     }) {
                         Image(systemName: "xmark.circle.fill")
                             .font(.system(size: 18))
@@ -559,46 +562,56 @@ struct ContentView: View {
     @State private var inputText: String = ""
     @State private var extractedLinks: [String] = []
     @State private var isAnimating: Bool = false
+    @EnvironmentObject private var windowManager: WindowManager
     
     var body: some View {
-        VStack(spacing: 15) {
-            HStack(spacing: 15) {
-                Image(systemName: "link.badge.plus")
-                    .font(.system(size: 40))
-                    .foregroundStyle(
-                        LinearGradient(
-                            colors: [.blue, .purple],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
+        ScrollView {
+            VStack(spacing: 15) {
+                HStack(spacing: 15) {
+                    Image(systemName: "link.badge.plus")
+                        .font(.system(size: 40))
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [.blue, .purple],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
                         )
-                    )
-                    .symbolEffect(.bounce, options: .repeating, value: isAnimating)
-                Text("链接提取器")
-                    .font(.title)
-                    .bold()
-                    .foregroundStyle(
-                        LinearGradient(
-                            colors: [.blue, .purple],
-                            startPoint: .leading,
-                            endPoint: .trailing
+                        .symbolEffect(.bounce, options: .repeating, value: isAnimating)
+                    Text("链接提取器")
+                        .font(.title)
+                        .bold()
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [.blue, .purple],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
                         )
-                    )
-            }
-            .padding(.top, 20)
-            
-            AnimatedInputField(text: $inputText)
-                .onChange(of: inputText) { oldValue, newValue in
-                    extractLinks()
                 }
-            
-            LinkList(links: extractedLinks)
-            
-            Spacer(minLength: 0)
+                .padding(.top, 45)
+                
+                AnimatedInputField(text: $inputText)
+                    .onChange(of: inputText) { oldValue, newValue in
+                        extractLinks()
+                    }
+                    .onChange(of: windowManager.clipboardContent) { oldValue, newValue in
+                        // 只要剪贴板内容不为空，就更新输入文本
+                        if !newValue.isEmpty {
+                            inputText = newValue
+                            extractLinks()
+                        }
+                    }
+                
+                LinkList(links: extractedLinks)
+                
+                Spacer(minLength: 20)
+            }
+            .padding(.horizontal, 20)
         }
-        .padding(.horizontal, 20)
-        .padding(.bottom, 20)
         .frame(minWidth: 600, minHeight: 400)
         .background(Color(.windowBackgroundColor))
+        .ignoresSafeArea(.all)
     }
     
     private func extractLinks() {
@@ -658,15 +671,20 @@ struct ContentView: View {
                 return true
             }
             
+            // 更新链接数量
+            windowManager.linksCount = extractedLinks.count
+            
         } catch {
             print("Error in link extraction: \(error)")
             extractedLinks = []
+            windowManager.linksCount = 0
         }
     }
 }
 
 #Preview {
     ContentView()
+        .environmentObject(WindowManager())
 }
 
 extension Color {

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		430CFA5C2DB2382100CD4DC7 /* HotKey in Frameworks */ = {isa = PBXBuildFile; productRef = 430CFA5B2DB2382100CD4DC7 /* HotKey */; };
+		430CFA5F2DB247DC00CD4DC7 /* HotKey in Frameworks */ = {isa = PBXBuildFile; productRef = 430CFA5E2DB247DC00CD4DC7 /* HotKey */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				430CFA5C2DB2382100CD4DC7 /* HotKey in Frameworks */,
+				430CFA5F2DB247DC00CD4DC7 /* HotKey in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,7 +70,7 @@
 			);
 			name = "Link purification";
 			packageProductDependencies = (
-				430CFA5B2DB2382100CD4DC7 /* HotKey */,
+				430CFA5E2DB247DC00CD4DC7 /* HotKey */,
 			);
 			productName = "Link purification";
 			productReference = 43AB666A2DB1431700CACF6E /* Link purification.app */;
@@ -102,7 +102,7 @@
 			mainGroup = 43AB66612DB1431700CACF6E;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				430CFA5A2DB2382100CD4DC7 /* XCRemoteSwiftPackageReference "HotKey" */,
+				430CFA5D2DB247DC00CD4DC7 /* XCRemoteSwiftPackageReference "HotKey" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 43AB666B2DB1431700CACF6E /* Products */;
@@ -333,7 +333,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		430CFA5A2DB2382100CD4DC7 /* XCRemoteSwiftPackageReference "HotKey" */ = {
+		430CFA5D2DB247DC00CD4DC7 /* XCRemoteSwiftPackageReference "HotKey" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/soffes/HotKey";
 			requirement = {
@@ -344,9 +344,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		430CFA5B2DB2382100CD4DC7 /* HotKey */ = {
+		430CFA5E2DB247DC00CD4DC7 /* HotKey */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 430CFA5A2DB2382100CD4DC7 /* XCRemoteSwiftPackageReference "HotKey" */;
+			package = 430CFA5D2DB247DC00CD4DC7 /* XCRemoteSwiftPackageReference "HotKey" */;
 			productName = HotKey;
 		};
 /* End XCSwiftPackageProductDependency section */
