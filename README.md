@@ -25,39 +25,6 @@
 - 邮件链接 (mailto:)：支持邮件地址链接
 - 电话链接 (tel:)：支持电话号码链接
 
-### 社交媒体
-- Twitter/X
-- Facebook
-- Instagram
-- YouTube
-- LinkedIn
-- GitHub
-- Reddit
-- 微博
-- 知乎
-- 哔哩哔哩
-- 抖音
-- 小红书
-
-### 文件类型
-- PDF 文档
-- Word 文档 (.doc/.docx)
-- Excel 表格 (.xls/.xlsx)
-- PowerPoint 演示文稿 (.ppt/.pptx)
-
-### 多媒体
-- 图片 (.jpg/.jpeg/.png/.gif)
-- 视频 (.mp4/.mov/.avi)
-- 音频 (.mp3/.wav)
-
-### 其他
-- 压缩文件 (.zip/.rar)
-- 代码文件 (.html/.css/.js/.py)
-- 新闻和博客链接
-- 电商网站
-- 搜索引擎
-- 邮件服务
-
 ## 💻 系统要求
 
 - macOS 13.0 或更高版本
